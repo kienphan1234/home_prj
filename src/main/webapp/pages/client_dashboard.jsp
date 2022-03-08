@@ -6,7 +6,7 @@
     <title>Client</title>
     <jsp:include page="library.jsp" />
     <script src="${pageContext.request.contextPath}/resources/js/header.js" ></script>
-    <script src="${pageContext.request.contextPath}/resources/js/client_total.js" ></script>
+    <script src="${pageContext.request.contextPath}/resources/js/client_dashboard.js" ></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
 </head>
 <body>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="">
-                            <button type="button" id="btnSearch" class="btn btn-search" data-current_page="${currentPage}" onclick="searchTotalPriceClient(this)">Tìm kiếm</button>
+                            <button type="button" id="btnSearch" class="btn btn-search" data-current_page="${currentPage}" onclick="searchHomeClient(this)">Tìm kiếm</button>
                         </div>
                     </div>
                 </div>
@@ -150,17 +150,17 @@
                 <ul id="pagination" class="pagination">
                     <c:if test="${currentPage != 1}">
                         <li class="page-item">
-                            <a class="page-link" onclick="searchTotalPriceClient(this)" href="#" data-current_page="${currentPage - 1}">Previous</a>
+                            <a class="page-link" onclick="searchHomeClient(this)" href="#" data-current_page="${currentPage - 1}">Previous</a>
                         </li>
                     </c:if>
                     <c:forEach var="i" begin="1" end="${totalPage}">
                         <li class="page-item ${i == currentPage ? ' active' : ''}">
-                            <a class="page-link" onclick="searchTotalPriceClient(this)" href="#" data-current_page="${i}">${i}</a>
+                            <a class="page-link" onclick="searchHomeClient(this)" href="#" data-current_page="${i}">${i}</a>
                         </li>
                     </c:forEach>
                     <c:if test="${currentPage < totalPage}">
                         <li class="page-item">
-                            <a class="page-link" onclick="searchTotalPriceClient(this)" href="#" data-current_page="${currentPage + 1}">Next</a>
+                            <a class="page-link" onclick="searchHomeClient(this)" href="#" data-current_page="${currentPage + 1}">Next</a>
                         </li>
                     </c:if>
                 </ul>

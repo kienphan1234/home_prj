@@ -16,6 +16,8 @@ public class HomePrice {
 	private String createdAt;
 	private String depositedAt;
 
+	private User user;
+
 	public HomePrice(int id, String roomPrice, String electricPrice, String waterPrice, String internetPrice, String garbagePrice, String livingPrice, String total, String note, int status, String createdAt, String depositedAt) {
 		this.id = id;
 		this.roomPrice = roomPrice;
@@ -32,6 +34,14 @@ public class HomePrice {
 	}
 
 	public HomePrice() {
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getId() {

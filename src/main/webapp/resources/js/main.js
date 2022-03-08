@@ -20,50 +20,10 @@ $(document).ready(function () {
     };
 });
 
-const formatDate = (date, format) => {
-    const d = date.split("-");
-    var res = "";
-    if (format == "MM-yyyy") {
-        res = d[1] + "-" + d[0];
-    }
-    return res;
-}
-
 const removeHtmlElement = (arr) => {
     for (var i = arr.length - 1; i >= 0; --i) {
         arr[i].remove();
     }
-}
-
-const convertDate = (date) => {
-    const d = new Date(date);
-    var month = '' + (d.getMonth() + 1);
-    var day = '' + d.getDate();
-    var year = d.getFullYear();
-
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-
-    return day + "-" + month + "-" + year + " " + d.getHours() + ":" + d.getMinutes()
-}
-
-const replaceDotToApostrophe = data => {
-    const result = data.replace(/\./g, '');
-    return result;
-}
-
-const getColorForChart = (i) => {
-    var color;
-    if (i == "0") {
-        color = 'rgb(255, 99, 132)';
-    } else if (i == "1") {
-        color = 'rgb(54, 162, 235)';
-    } else if (i == "2") {
-        color = 'rgb(75, 192, 192)';
-    }
-    return color;
 }
 
 // Wait for window load

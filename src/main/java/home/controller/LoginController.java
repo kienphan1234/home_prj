@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
 				HttpSession session = req.getSession(false);
 				session.setAttribute("userId", user.getId());
 				if (user.getRole() == 0) {
-					resp.sendRedirect(req.getContextPath().concat("/admin/dashboard"));
+					resp.sendRedirect(req.getContextPath().concat("/admin/dashboard").concat("?type=0"));
 				} else {
 					resp.sendRedirect(req.getContextPath().concat("/client/dashboard").concat("?type=0"));
 				}

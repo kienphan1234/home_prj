@@ -5,15 +5,17 @@ insert into users (id, username, password, description, role, active) values
 
 select * from users;
 
+SELECT COUNT(a.id) as total from home_price a;
+
 insert into home_price(user_id, room_price, electric_price, water_price, 
 internet_price, garbage_price, living_price, total, status, created_at, deposited_at, note)
 values
-(2, '1500000', '250000', '50000', '50000', '40000', '20000', '1910000', 1, CAST('2022-03-01' as date), null, 'NOTE'),
-(2, '1400000', '250000', '50000', '50000', '40000', '20000', '1810000', 1, CAST('2022-02-01' as date), null, 'NOTE'),
-(2, '1600000', '250000', '50000', '50000', '40000', '20000', '2010000', 1, CAST('2022-01-01' as date), null, 'NOTE'),
-(2, '1500000', '250000', '50000', '50000', '40000', '20000', '1510000', 1, CAST('2021-12-01' as date), null, 'NOTE'),
-(2, '1400000', '250000', '50000', '50000', '40000', '20000', '1300000', 1, CAST('2021-11-01' as date), null, 'NOTE'),
-(2, '1600000', '250000', '50000', '50000', '40000', '20000', '1700000', 1, CAST('2021-10-01' as date), null, 'NOTE');
+(2, '1500000', '250000', '50000', '50000', '40000', '20000', '1910000', 0, CAST('2022-03-01' as date), null, 'NOTE'),
+(2, '1400000', '250000', '50000', '50000', '40000', '20000', '1810000', 0, CAST('2022-02-01' as date), null, 'NOTE'),
+(2, '1600000', '250000', '50000', '50000', '40000', '20000', '2010000', 0, CAST('2022-01-01' as date), null, 'NOTE'),
+(2, '1500000', '250000', '50000', '50000', '40000', '20000', '1510000', 0, CAST('2021-12-01' as date), null, 'NOTE'),
+(2, '1400000', '250000', '50000', '50000', '40000', '20000', '1300000', 0, CAST('2021-11-01' as date), null, 'NOTE'),
+(2, '1600000', '250000', '50000', '50000', '40000', '20000', '1700000', 0, CAST('2021-10-01' as date), null, 'NOTE');
 
 delete from home_price;
 

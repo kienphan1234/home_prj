@@ -1,4 +1,4 @@
-function searchTotalPriceClient(e) {
+function searchHomeClient(e) {
     var data = $("#frmSearchClientTotal").serializeObject();
     data["pageNumber"] = e.getAttribute("data-current_page");
     data["type"] = "1";
@@ -44,14 +44,14 @@ function searchTotalPriceClient(e) {
             if (result.totalPage > 1) {
                 var html = "";
                 if (result.currentPage != 1) {
-                    html += "<li class='page-item'><a class='page-link' href='#' onclick='searchTotalPriceClient(this)' data-current_page='" + (result.currentPage - 1) + "'>Previous</a></li>";
+                    html += "<li class='page-item'><a class='page-link' href='#' onclick='searchHomeClient(this)' data-current_page='" + (result.currentPage - 1) + "'>Previous</a></li>";
                 }
                 for (let i = 1; i <= result.totalPage; i++) {
                     const activeClass = (i === result.currentPage) ? 'active' : '';
-                    html += "<li class='page-item " + activeClass + "'><a class='page-link' href='#' onclick='searchTotalPriceClient(this)' data-current_page='" + i + "'>" + i + "</a></li>";
+                    html += "<li class='page-item " + activeClass + "'><a class='page-link' href='#' onclick='searchHomeClient(this)' data-current_page='" + i + "'>" + i + "</a></li>";
                 }
                 if (result.currentPage < result.totalPage) {
-                    html += "<li class='page-item'><a class='page-link' href='#' onclick='searchTotalPriceClient(this)' data-current_page='" + (result.currentPage + 1) + "'>Next</a></li>";
+                    html += "<li class='page-item'><a class='page-link' href='#' onclick='searchHomeClient(this)' data-current_page='" + (result.currentPage + 1) + "'>Next</a></li>";
                 }
                 ulPaginations.innerHTML = html;
             }

@@ -1,51 +1,54 @@
 package home.controller;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import home.common.Constants;
 import home.common.Utils;
 import home.dao.PriceDao;
+import home.dao.UserDao;
 import home.model.HomePrice;
+import home.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-@WebServlet(name = "client_dashboard", value = "/client/dashboard")
-public class DashboardController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet(name = "admin_dashboard", value = "/admin/dashboard")
+public class DashboardAdminController extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
-			HttpSession session = request.getSession(false);
-			int userId = session != null ? (int) session.getAttribute("userId") : 0;
 			PriceDao priceDao = new PriceDao();
 			String type = request.getParameter("type");
 			System.out.println("Type: " + type);
 			int currentPage;
 			List<HomePrice> homePriceList;
 			if ("0".equals(type)) {
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findAll();
+				request.setAttribute("roomList", userList);
+
 				currentPage = 1;
-				homePriceList = priceDao.searchAllPrice(userId, 1, Constants.LIMIT_PAGE, "", "", "");
+				homePriceList = priceDao.searchAllPrice(0, 1, Constants.LIMIT_PAGE, "", "", "");
 				System.out.println("Search home price list, size: " + homePriceList.size());
 
-				int size = priceDao.getTotalRecord(userId, "", "", "");
+				int size = priceDao.getTotalRecord(0, "", "", "");
 				System.out.println("Total record: " + size);
 				int totalPage = Utils.getTotalPage(size);
 				request.setAttribute("homePriceList", homePriceList);
 				System.out.println("Total page: " + totalPage);
 				request.setAttribute("totalPage", totalPage);
 				request.setAttribute("currentPage", currentPage);
-				request.getRequestDispatcher("/pages/client_dashboard.jsp").forward(request, response);
+				request.getRequestDispatcher("/pages/admin_dashboard.jsp").forward(request, response);
 			} else {
+				int userId = Integer.parseInt(request.getParameter("room"));
 				int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 				String year = request.getParameter("year");
 				String month = request.getParameter("month");
@@ -78,6 +81,7 @@ public class DashboardController extends HttpServlet {
 					jsonObject.addProperty("status", homePrice.getStatus());
 					jsonObject.addProperty("createdAt", homePrice.getCreatedAt());
 					jsonObject.addProperty("depositedAt", homePrice.getDepositedAt());
+					jsonObject.addProperty("roomDescription", homePrice.getUser().getDescription());
 					jsonArray.add(jsonObject);
 				}
 				resp.add("homePriceList", jsonArray);
@@ -89,6 +93,33 @@ public class DashboardController extends HttpServlet {
 				output.write(resp.toString());
 				output.flush();
 			}
+		} catch (Exception ex) {
+			System.out.println("err: " + ex);
+			log(ex.getMessage());
+		}
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			PriceDao priceDao = new PriceDao();
+			boolean result = priceDao.updateStatus(id);
+			String code;
+			JsonObject jsonObject = new JsonObject();
+			if (result) {
+				code = "200";
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				jsonObject.addProperty("depositedDate", format.format(new Date()));
+			} else {
+				code = "500";
+			}
+			jsonObject.addProperty("code", code);
+
+			PrintWriter output = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			output.write(jsonObject.toString());
+			output.flush();
 		} catch (Exception ex) {
 			System.out.println("err: " + ex);
 			log(ex.getMessage());
