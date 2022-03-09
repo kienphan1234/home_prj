@@ -113,3 +113,32 @@ function confirmDeposit(e) {
         });
     }
 }
+
+function uploadPrice() {
+    const form = document.getElementById("uploadForm");
+    const data = new FormData(form);
+    $.ajax({
+        url: "/admin/upload",
+        encType : "multipart/form-data",
+        cache: true,
+        dataType: "json",
+        contentType: false,
+        type: "POST",
+        data: data,
+        beforeSend: function () {
+            $("body .wrapper").css('opacity', 0.3);
+            $("#loader").show();
+        },
+        success: function (result) {
+            console.log(result);
+        },
+        error: function(jqXhr, textStatus, errorMessage) {
+            console.log("Error: ", errorMessage);
+        },
+        complete: function () {
+            $("#loader").fadeOut("slow");
+            $("body .wrapper").fadeIn(600);
+            $("body .wrapper").css('opacity', 1);
+        }
+    });
+}

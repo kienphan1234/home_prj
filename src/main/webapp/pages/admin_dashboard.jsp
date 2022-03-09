@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-md-1">
                         <div class="">
-                            <button type="button" id="btnAdd" class="btn btn-search" >Thêm</button>
+                            <button type="button" id="btnAdd" class="btn btn-search" data-target="#btnAddModal" data-toggle="modal">Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -176,6 +176,32 @@
                     </c:if>
                 </ul>
             </c:if>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="btnAddModal" tabindex="-1" role="dialog" aria-labelledby="btnAddModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Upload tiền trọ hàng tháng mỗi phòng theo file excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm" method="POST" action="#" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="mb-6">
+                            <label for="formFile" class="form-label">Upload file</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-search" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-search" onclick="uploadPrice()">Upload</button>
+            </div>
         </div>
     </div>
 </div>
